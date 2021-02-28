@@ -1,3 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import (
+    render,
+    get_object_or_404,
+    redirect,
+)
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
-# Create your views here.
+from .models import Recipe, Ingredient, Follow
+
+
+def index(request):
+    recipes_list = Recipe.objects.all()
+    paginator = Paginator(recipes_list, 6)
+    page_number = request.GET.get("page")
+    page = paginator.get_page(page_number)
+    return render(
+        request, "index.html", {"page": page, "paginator": paginator}
+    )
