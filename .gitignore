@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+staticfiles_backup
+templates_backup
+
+foodgram/static/
+foodgram/media/

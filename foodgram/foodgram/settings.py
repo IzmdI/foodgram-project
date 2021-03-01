@@ -1,9 +1,7 @@
 import os
 
-from pathlib import Path
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -29,12 +27,14 @@ INTERNAL_IPS = [
 INSTALLED_APPS = [
     "recipes",
     "users",
+    "api",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "sorl.thumbnail",
 ]
 
 MIDDLEWARE = [
@@ -76,9 +76,9 @@ WSGI_APPLICATION = "foodgram.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "foodgram",
+        "NAME": "foodgramdb",
         "USER": "foodgramuser",
-        "PASSWORD": "g8fke673mq45",
+        "PASSWORD": "g8fke673",
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
