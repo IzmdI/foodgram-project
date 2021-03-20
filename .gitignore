@@ -130,6 +130,8 @@ dmypy.json
 
 defaultfiles_backup
 
-foodgram/static/
-foodgram/media/
-foodgram/sent_emails/
+media
+static
+sent_emails
+
+.flake8

@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Войти{% endblock %}
+{% load static %}
+{% block styles %}<link rel="stylesheet" href="{% static 'pages/form.css' %}">{% endblock %}
 {% block header %}Войти{% endblock %}
 {% block content %}
 {% load user_filters %}

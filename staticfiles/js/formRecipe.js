@@ -7,8 +7,38 @@ const cantidadVal = document.querySelector('#cantidadVal');
 const cantidad = document.querySelector('#cantidad')
 const addIng = document.querySelector('#addIng');
 
+const fileUpload = document.querySelector('#id_image')
+const fileUploadName = document.querySelector('.form__upload-file')
+
 const api = new Api(apiUrl);
 const header = new Header(counterId);
+
+const readFile = (event) => {
+  let file = event.target.files[0];
+  let reader = new FileReader();
+  reader.readAsText(file);
+
+  reader.onload = function() {
+    fileUploadName.textContent = file.name
+
+    fileUploadName.classList.add('form__upload-file_active')
+    const deleteButton = document.querySelector('.form__upload-delete');
+    deleteButton.classList.add('form__upload-delete_active')
+    deleteButton.addEventListener('click', () => {
+          fileUploadName.textContent = '';
+          event.target.value = ''
+          fileUploadName.classList.remove('form__upload-file_active')
+          deleteButton.classList.remove('form__upload-delete_active')
+    })
+  };
+
+  reader.onerror = function() {
+    console.log(reader.error);
+  };
+
+}
+
+fileUpload.addEventListener('change', readFile)
 
 const defineInitialIndex = function () {
     const ingredients = ingredientsContainer.querySelectorAll('.form__field-item-ingredient')
@@ -105,5 +135,3 @@ const ingredients = Ingredients();
 formDropdownItems.addEventListener('click', ingredients.dropdown);
 // вешаем слушатель на кнопку
 addIng.addEventListener('click', ingredients.addIngredient);
-
-

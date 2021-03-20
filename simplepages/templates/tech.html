@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}О сайте{% endblock %}
+{% load static %}
+{% block styles %}<link rel="stylesheet" href="{% static 'pages/single.css' %}">{% endblock %}
+{% block header %}О сайте{% endblock %}
+{% block content %}
+
+    <div class="single-card">
+        <img class="single-card__image" src="{% static 'images/author.jpg' %}" alt="author">
+        <div class="single-card__info">
+            <div class="single-card__header-info">
+                <h1 class="single-card__title">Технологии</h1>
+            </div>
+            <div class="single-card__section">
+                <p class="single-card__section-text">В реализации проекта были использованы следующие инструменты:</p>
+                <p class="single-card__section-text">Фреймворк для веб-разработки <a href="https://www.djangoproject.com/">Django</a>.</p>
+                <p class="single-card__section-text">Фреймворк для реализации API <a href="https://www.django-rest-framework.org/">Django REST</a>.</p>
+                <p class="single-card__section-text">База данных <a href="https://www.postgresql.org/">PostgreSQL</a>.</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

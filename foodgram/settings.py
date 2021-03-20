@@ -27,7 +27,6 @@ INTERNAL_IPS = [
 INSTALLED_APPS = [
     "recipes",
     "users",
-    "api",
     "django.contrib.sites",
     "django.contrib.flatpages",
     "django.contrib.admin",
@@ -37,6 +36,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "sorl.thumbnail",
+    "rest_framework",
+    "api",
+    "simplepages",
 ]
 
 MIDDLEWARE = [
@@ -119,7 +121,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -134,8 +135,19 @@ LOGIN_URL = "/auth/login/"
 LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "index"
 
-
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
 SITE_ID = 1
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}
+
+CSRF_USE_SESSIONS = True
+CSRF_COOKIE_HTTPONLY = True

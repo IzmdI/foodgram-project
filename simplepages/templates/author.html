@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Об авторе{% endblock %}
+{% load static %}
+{% block styles %}<link rel="stylesheet" href="{% static 'pages/single.css' %}">{% endblock %}
+{% block header %}Об авторе{% endblock %}
+{% block content %}
+
+    <div class="single-card">
+        <img class="single-card__image" src="{% static 'images/author.jpg' %}" alt="author">
+        <div class="single-card__info">
+            <div class="single-card__header-info">
+                <h1 class="single-card__title">Об авторое</h1>
+            </div>
+            <div class="single-card__section">
+                <p class="single-card__section-text">Здравствуйте, меня зовут Смелов Андрей, я студент Яндекс.Практикума.</p>
+                <p class="single-card__section-text">Мне 28 лет, проживаю сейчас в Санкт-Петербурге.
+                    Мне нравится программировать, и этот проект - прямое тому подтверждение.</p>
+                <p class="single-card__section-text">Можете оценить другие работы на моей странице в <a href="https://github.com/IzmdI/">GitHub</a>.</p>
+                <p class="single-card__section-text">Или можете посмотреть мой <a href="https://www.instagram.com/izmdi/">инстаграм</a>.</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

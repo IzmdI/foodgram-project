@@ -10,3 +10,31 @@
     max-width: 770px;
     width: 100%;
 }
+
+.form__upload-file {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+    display: none;
+    font-family: 'Montserrat', sans-serif;
+}
+.form__upload-file_active {
+    display: inline;
+}
+
+.form__upload-delete {
+    width: 21px;
+    height: 21px;
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    margin: 0 0 0 8px;
+    display: none;
+}
+
+.form__upload-delete_active {
+    display: inline-block;
+}

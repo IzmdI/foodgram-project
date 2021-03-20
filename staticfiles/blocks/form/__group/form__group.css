@@ -3,3 +3,7 @@
     width: 100%;
     margin-bottom: 25px;
 }
+
+.form__group_upload {
+    align-items: center;
+}

@@ -1,23 +1,26 @@
 {% extends "base.html" %}
 {% block title %}Рецепты{% endblock %}
+{% load static %}
+{% block styles %}<link rel="stylesheet" href="{% static 'pages/index.css' %}">{% endblock %}
 {% block header %}Рецепты{% endblock %}
 {% block content %}
+
     <div class="main__header">
         <h1 class="main__title">Рецепты</h1>
-        <ul class="tags">
-            <li class="tags__item">
-                <a id="breakfast" class="tags__checkbox tags__checkbox_style_orange tags__checkbox_active" href="#"></a>
-                <span class="tags__label">Завтрак</span>
-            </li>
-            <li class="tags__item">
-                <a id="lunch" class="tags__checkbox tags__checkbox_style_green tags__checkbox_active" href="#"></a>
-                <span for="lunch" class="tags__label">Обед</span>
-            </li>
-            <li class="tags__item">
-                <a id="dinner" class="tags__checkbox tags__checkbox_style_purple tags__checkbox_active" href="#"></a>
-                <label for="dinner" class="tags__label">Ужин</label>
-            </li>
-        </ul>
+        <form method="get" id="tag_form_id" onchange="document.getElementById('tag_form_id').submit()">
+            <ul class="tags">
+                {% for tag in form.tags %}
+                    <li class="tags__item">
+                        <input type="checkbox" name="tags" value="{{ tag.data.value }}" id="{{ tag.id_for_label }}"
+                               {% if tag.data.value == "zavtrak" %}class="tags__checkbox tags__checkbox_style_orange"
+                               {% elif tag.data.value == "obed" %}class="tags__checkbox tags__checkbox_style_green"
+                               {% else %}class="tags__checkbox tags__checkbox_style_purple"{% endif %}
+                               {% if tag.data.selected %}checked{% endif %}>
+                        <label for="{{ tag.id_for_label }}" class="tags__label">{{ tag.choice_label }}</label>
+                    </li>
+                {% endfor %}
+            </ul>
+        </form>
     </div>
     <div class="card-list">
     {% for recipe in page %}
@@ -26,6 +29,25 @@
     </div>
     {% if page.has_other_pages %}
         {% include "includes/paginator.html" with items=page paginator=paginator %}
+    {% endif %}
+
+{% endblock %}
+{% block scripts %}
+
+    {% csrf_token %}
+    <script src="{% static 'js/components/MainCards.js' %}"></script>
+    <script src="{% static 'js/components/Purchases.js' %}"></script>
+    {% if user.is_authenticated %}
+    <script src="{% static 'js/components/Favorites.js' %}"></script>
+    {% endif %}
+    <script src="{% static 'js/config/config.js' %}"></script>
+    <script src="{% static 'js/components/CardList.js' %}"></script>
+    <script src="{% static 'js/components/Header.js' %}"></script>
+    <script src="{% static 'js/api/Api.js' %}"></script>
+    {% if user.is_authenticated %}
+    <script src="{% static 'js/indexAuth.js' %}"></script>
+    {% else %}
+    <script src="{% static 'js/indexNotAuth.js' %}"></script>
     {% endif %}
 
 {% endblock %}

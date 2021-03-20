@@ -3,11 +3,18 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+handler404 = "recipes.views.page_not_found"  # noqa
+handler500 = "recipes.views.server_error"  # noqa
+
+
 urlpatterns = [
     path("auth/", include("users.urls")),
     path("auth/", include("django.contrib.auth.urls")),
-    path("", include("recipes.urls")),
+    path("about/", include("simplepages.urls", namespace="about")),
     path("admin/", admin.site.urls),
+    path("", include("recipes.urls")),
+    path("api/", include("api.urls")),
 ]
 
 if settings.DEBUG:

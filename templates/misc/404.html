@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Ошибка 404{% endblock %}
+{% block header %}Ошибка 404{% endblock %}
+{% block content %}
+
+    <div class="single-card">
+        <div class="single-card__info">
+            <h3 class="single-card__title">Ошибка 404</h3>
+            <br>
+            <h3 class="single-card__section-title">Такой страницы <code>{{ path }}</code> у нас нет :(</h3>
+            <h3 class="single-card__section-title"><a href="{% url 'index' %}">Вернёмся на главную?</a></h3>
+        </div>
+    </div>
+
+{% endblock %}
