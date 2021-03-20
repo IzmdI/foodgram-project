@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 *$py.class
-.idea
 
 # C extensions
 *.so
@@ -135,4 +134,5 @@ media
 static
 sent_emails
 
+.idea
 .flake8

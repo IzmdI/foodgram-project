@@ -20,68 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="30f30a39-ed49-47dd-9d12-de2043ef5feb" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/IzmdI.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipes/templates/follows.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipes/templates/includes/author_card.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipes/templates/recipe.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipes/templates/shoplist.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipes/templatetags/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipes/templatetags/paginator_tags.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/recipes/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simplepages/templates/author.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simplepages/templates/tech.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/staticfiles/shoplist.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/favorites.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/misc/404.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/misc/500.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/foodgram-project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/foodgram-project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foodgram/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/foodgram/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/foodgram/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/foodgram/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipes/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/recipes/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipes/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/recipes/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipes/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipes/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/recipes/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipes/templates/includes/recipe_card.html" beforeDir="false" afterPath="$PROJECT_DIR$/recipes/templates/includes/recipe_card.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipes/templates/new_recipe.html" beforeDir="false" afterPath="$PROJECT_DIR$/recipes/templates/new_recipe.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipes/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/recipes/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipes/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/recipes/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipes/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/recipes/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipes/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/recipes/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/blocks/form/__group/form__group.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/blocks/form/__group/form__group.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/blocks/form/form.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/blocks/form/form.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/js/api/Api.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/js/api/Api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/js/config/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/js/config/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/js/formRecipe.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/js/formRecipe.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/js/myFollow.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/js/myFollow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/includes/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/includes/footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/includes/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/includes/nav.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/includes/paginator.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/includes/paginator.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templates/registration/password_change_done.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/registration/password_change_done.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templates/registration/password_change_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/registration/password_change_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templates/registration/password_reset_complete.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/registration/password_reset_complete.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templates/registration/password_reset_confirm.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/registration/password_reset_confirm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templates/registration/password_reset_done.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/registration/password_reset_done.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templates/registration/password_reset_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/registration/password_reset_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templates/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/templatetags/user_filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/templatetags/user_filters.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/tests.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +128,8 @@
       <workItem from="1616158639634" duration="6776000" />
       <workItem from="1616172734441" duration="1996000" />
       <workItem from="1616186421550" duration="5398000" />
-      <workItem from="1616233209913" duration="30443000" />
+      <workItem from="1616233209913" duration="30834000" />
+      <workItem from="1616270178423" duration="166000" />
     </task>
     <servers />
   </component>
@@ -224,38 +165,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1615042783633" />
-    <state width="1876" height="237" key="GridCell.Tab.0.bottom" timestamp="1616269426244">
+    <state width="1876" height="341" key="GridCell.Tab.0.bottom" timestamp="1616269983821">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="237" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1616269426244" />
-    <state width="1876" height="237" key="GridCell.Tab.0.center" timestamp="1616269426244">
+    <state width="1876" height="341" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1616269983821" />
+    <state width="1876" height="341" key="GridCell.Tab.0.center" timestamp="1616269983821">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="237" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1616269426244" />
-    <state width="1876" height="237" key="GridCell.Tab.0.left" timestamp="1616269426244">
+    <state width="1876" height="341" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1616269983821" />
+    <state width="1876" height="341" key="GridCell.Tab.0.left" timestamp="1616269983821">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="237" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1616269426244" />
-    <state width="1876" height="237" key="GridCell.Tab.0.right" timestamp="1616269426244">
+    <state width="1876" height="341" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1616269983821" />
+    <state width="1876" height="341" key="GridCell.Tab.0.right" timestamp="1616269983821">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="237" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1616269426244" />
-    <state width="1876" height="341" key="GridCell.Tab.1.bottom" timestamp="1616249883605">
+    <state width="1876" height="341" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1616269983821" />
+    <state width="1876" height="341" key="GridCell.Tab.1.bottom" timestamp="1616269983821">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="341" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1616249883605" />
-    <state width="1876" height="341" key="GridCell.Tab.1.center" timestamp="1616249883605">
+    <state width="1876" height="341" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1616269983821" />
+    <state width="1876" height="341" key="GridCell.Tab.1.center" timestamp="1616269983821">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="341" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1616249883605" />
-    <state width="1876" height="341" key="GridCell.Tab.1.left" timestamp="1616249883605">
+    <state width="1876" height="341" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1616269983821" />
+    <state width="1876" height="341" key="GridCell.Tab.1.left" timestamp="1616269983821">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="341" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1616249883605" />
-    <state width="1876" height="341" key="GridCell.Tab.1.right" timestamp="1616249883605">
+    <state width="1876" height="341" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1616269983821" />
+    <state width="1876" height="341" key="GridCell.Tab.1.right" timestamp="1616269983821">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1876" height="341" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1616249883605" />
+    <state width="1876" height="341" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1616269983821" />
     <state x="432" y="156" key="SettingsEditor" timestamp="1616258322255">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
