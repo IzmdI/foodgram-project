@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Ошибка 404{% endblock %}
+{% load static %}
+{% block styles %}<link rel="stylesheet" href="{% static 'pages/index.css' %}">{% endblock %}
 {% block header %}Ошибка 404{% endblock %}
 {% block content %}
 
-    <div class="single-card">
-        <div class="single-card__info">
-            <h3 class="single-card__title">Ошибка 404</h3>
-            <br>
-            <h3 class="single-card__section-title">Такой страницы <code>{{ path }}</code> у нас нет :(</h3>
-            <h3 class="single-card__section-title"><a href="{% url 'index' %}">Вернёмся на главную?</a></h3>
+    <div class="custom-center-block">
+        <h3 class="custom-text-block">Ошибка 404</h3>
+        <p class="custom-text-block">Такой страницы {{ path }} у нас нет :(</p>
+        <div class="custom-button-block">
+            <a href="{% url 'index' %}"><button class="button button_style_blue">Перейти на главную</button></a>
         </div>
     </div>
 

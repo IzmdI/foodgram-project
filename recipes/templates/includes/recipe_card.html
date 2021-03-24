@@ -8,20 +8,18 @@
     {% endthumbnail %}
     <div class="card__body">
         <a class="card__title link" href="{% url 'recipe' recipe.id %}">{{ recipe.title }}</a>
+        <br>
         <ul class="card__items">
             {% for tag in recipe.tags.all %}
                 <li class="card__item">
-                    <span {% if tag.title == 'Обед' %}class="badge badge_style_green"
-                          {% elif tag.title == 'Завтрак' %}class="badge badge_style_orange"
-                          {% else %}class="badge badge_style_purple"{% endif %}>{{ tag.title }}
-                    </span>
+                    <span class="badge badge_style_{{ tag.color }}">{{ tag.title }}</span>
                 </li>
             {% endfor %}
         </ul>
         <div class="card__items card__items_column">
             <p class="card__text"><span class="icon-time"></span> {{ recipe.time }} мин.</p>
             <p class="card__text"><span class="icon-user"></span> <a href="{% url 'profile' recipe.author %}" style="color: black">
-                {% if recipe.author.get_full_name %}{{ recipe.author.get_full_name }}{% else %}{{ recipe.author.username }}{% endif %}</a>
+                {% firstof recipe.author.get_full_name recipe.author.username %}</a>
             </p>
         </div>
     </div>

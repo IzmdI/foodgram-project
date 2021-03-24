@@ -1,17 +1,19 @@
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-
 
 User = get_user_model()
 
 
 class FoodTag(models.Model):
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=20, unique=True)
     slug = models.SlugField(unique=True)
+    color = models.CharField(max_length=20, unique=True)
 
     class Meta:
         verbose_name_plural = "Теги"
         verbose_name = "Тег"
+        ordering = ["title"]
 
     def __str__(self):
         return f"{self.title}"
@@ -24,6 +26,7 @@ class Ingredient(models.Model):
     class Meta:
         verbose_name_plural = "Ингредиенты"
         verbose_name = "Ингредиент"
+        ordering = ["name"]
 
     def __str__(self):
         return f"{self.name}, {self.measure}"
@@ -46,7 +49,10 @@ class Recipe(models.Model):
     tags = models.ManyToManyField(
         FoodTag, blank=True, related_name="tag_recipes"
     )
-    time = models.PositiveIntegerField(blank=True, null=True)
+    time = models.PositiveIntegerField(
+        default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(1440)],
+    )
     pub_date = models.DateTimeField("Дата публикации", auto_now_add=True)
     favorites = models.ManyToManyField(
         User,
@@ -62,9 +68,12 @@ class Recipe(models.Model):
     )
 
     class Meta:
-        ordering = ["-pub_date"]
+        ordering = ["-pub_date", "title"]
         verbose_name_plural = "Рецепты"
         verbose_name = "Рецепт"
+
+    def favorite_adds(self):
+        return Favorite.objects.filter(recipe_id=self.id).count()
 
     def __str__(self):
         return f"{self.title}"
@@ -81,7 +90,10 @@ class IngredientAmount(models.Model):
         on_delete=models.CASCADE,
         related_name="ing_amounts",
     )
-    amount = models.PositiveIntegerField(blank=True, null=True)
+    amount = models.PositiveIntegerField(
+        default=0,
+        validators=[MinValueValidator(0), MaxValueValidator(1000000)],
+    )
 
     class Meta:
         verbose_name_plural = "Ингредиенты"
@@ -145,10 +157,16 @@ class Follow(models.Model):
     class Meta:
         verbose_name_plural = "Подписки"
         verbose_name = "Подписка"
+        ordering = ["user", "author"]
         constraints = [
+            models.CheckConstraint(
+                check=~models.Q(user=models.F("author")),
+                name="Обнаружена самоподписка",
+            ),
             models.UniqueConstraint(
-                fields=["user", "author"], name="follow_unique"
-            )
+                fields=["user", "author"],
+                name="follow_unique",
+            ),
         ]
 
     def __str__(self):

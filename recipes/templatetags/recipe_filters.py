@@ -1,6 +1,5 @@
 from django import template
 
-
 register = template.Library()
 
 
@@ -9,3 +8,11 @@ def url_replace(context, **kwargs):
     query = context["request"].GET.copy()
     query.update(kwargs)
     return query.urlencode()
+
+
+@register.filter
+def format_str_by_value(value):
+    if value == 4:
+        return f"{value} рецепта..."
+    else:
+        return f"{value} рецептов..."

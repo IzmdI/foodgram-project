@@ -1,8 +1,9 @@
 {% load static %}
+{% load recipe_filters %}
 <div class="card-user" data-author="{{ author.id }}">
 <div class="card-user__header">
     <h2 class="card-user__title">
-        {% if author.get_full_name %}{{ author.get_full_name }}{% else %}{{ author.username }}{% endif %}
+        {% firstof author.get_full_name author.username %}
     </h2>
 </div>
 <div class="card-user__body">
@@ -21,11 +22,13 @@
             </div>
         </li>
         {% endfor %}
-        {% if author.user_recipes.count > 3 %}
+        {% with count=author.user_recipes.count %}
+        {% if count > 3 %}
         <li class="card-user__item">
-            <a href="{% url 'profile' author.username %}" class="card-user__link link">Ещё рецепты автора</a>
+            <a href="{% url 'profile' author.username %}" class="card-user__link link">Ещё {{ count|format_str_by_value }}</a>
         </li>
         {% endif %}
+        {% endwith %}
     </ul>
 </div>
 <div class="card-user__footer">

@@ -7,20 +7,7 @@
 
     <div class="main__header">
         <h1 class="main__title">Рецепты</h1>
-        <form method="get" id="tag_form_id" onchange="document.getElementById('tag_form_id').submit()">
-            <ul class="tags">
-                {% for tag in form.tags %}
-                    <li class="tags__item">
-                        <input type="checkbox" name="tags" value="{{ tag.data.value }}" id="{{ tag.id_for_label }}"
-                               {% if tag.data.value == "zavtrak" %}class="tags__checkbox tags__checkbox_style_orange"
-                               {% elif tag.data.value == "obed" %}class="tags__checkbox tags__checkbox_style_green"
-                               {% else %}class="tags__checkbox tags__checkbox_style_purple"{% endif %}
-                               {% if tag.data.selected %}checked{% endif %}>
-                        <label for="{{ tag.id_for_label }}" class="tags__label">{{ tag.choice_label }}</label>
-                    </li>
-                {% endfor %}
-            </ul>
-        </form>
+        {% include "includes/tagform.html" with taglist=form.tags %}
     </div>
     <div class="card-list">
     {% for recipe in page %}

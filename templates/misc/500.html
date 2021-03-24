@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block title %}Ошибка 500{% endblock %}
+{% load static %}
+{% block styles %}<link rel="stylesheet" href="{% static 'pages/index.css' %}">{% endblock %}
 {% block header %}Ошибка 500{% endblock %}
 {% block content %}
 
-    <div class="single-card">
-        <div class="single-card__info">
-            <h3 class="single-card__title">Ошибка 500</h3>
-            <br>
-            <h3 class="single-card__section-title">Ошибка на сервере, попробуйте обновить страницу или обратиться позже.</h3>
-            <h3 class="single-card__section-title"><a href="{% url 'index' %}">Вернёмся на главную?</a></h3>
+    <div class="custom-center-block">
+        <h3 class="custom-text-block">Ошибка 500</h3>
+        <p class="custom-text-block">Ошибка на сервере, попробуйте обновить страницу или обратиться позже.</p>
+        <div class="custom-button-block">
+            <a href="{% url 'index' %}"><button class="button button_style_blue">Перейти на главную</button></a>
         </div>
     </div>
 

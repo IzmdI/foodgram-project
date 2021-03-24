@@ -1,21 +1,21 @@
 {% extends "base.html" %}
-{% block title %}Изменить пароль{% endblock %}
+{% block title %}Регистрация{% endblock %}
 {% load static %}
 {% block styles %}<link rel="stylesheet" href="{% static 'pages/form.css' %}">{% endblock %}
-{% block header %}Изменить пароль{% endblock %}
+{% block header %}Регистрация{% endblock %}
 {% block content %}
 
     <div class="main__header">
-        <h1 class="main__title">Изменить пароль</h1>
+        <h1 class="main__title">Регистрация</h1>
     </div>
     <div class="form-container">
-        <form class="form" method="post">
+        <form class="form" method="post" action="{% url 'signup' %}">
             {% csrf_token %}
             {% for field in form %}
                 {% include "includes/regformfields.html" with field=field %}
             {% endfor %}
             <div class="form__footer">
-                <button class="button button_style_blue">Изменить пароль</button>
+                <button class="button button_style_blue">Создать аккаунт</button>
             </div>
         </form>
     </div>

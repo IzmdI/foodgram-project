@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Recipe, Ingredient, FoodTag
+from .models import FoodTag, Ingredient, Recipe
 
 
 class RecipeForm(forms.ModelForm):
@@ -38,8 +38,9 @@ class RecipeForm(forms.ModelForm):
 
 
 class TagForm(forms.Form):
-    tags = forms.MultipleChoiceField(
-        choices=(("zavtrak", "Завтрак"), ("obed", "Обед"), ("uzhin", "Ужин")),
-        widget=forms.CheckboxSelectMultiple,
+    tags = forms.ModelMultipleChoiceField(
+        queryset=FoodTag.objects.all(),
+        widget=forms.CheckboxSelectMultiple(),
+        to_field_name="slug",
         required=False,
     )
