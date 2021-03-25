@@ -9,6 +9,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "*",
 ]
+# тест воркфлоу
 
 INTERNAL_IPS = [
     "localhost",
