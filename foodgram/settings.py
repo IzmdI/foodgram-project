@@ -2,9 +2,9 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = "!l!qn=vq(ztv!zivo*0nmf=9u_vfeqgb-d**cqc%f)#@wv5jw5"
+SECRET_KEY = os.environ.get("SECRET_KEY", "default")
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     "*",
@@ -68,10 +68,10 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "foodgramdb",
-        "USER": "foodgramuser",
-        "PASSWORD": "g8fke673",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
     }
 }
 
@@ -101,7 +101,7 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "staticfiles")]
 
 MEDIA_URL = "/media/"
