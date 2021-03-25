@@ -5,13 +5,12 @@
 {% block header %}Избранное{% endblock %}
 {% block content %}
 
-    <div class="main__header">
-        <h1 class="main__title">Избранное</h1>
-        {% include "includes/tagform.html" with taglist=form.tags %}
-    </div>
+    {% include "includes/mainheader.html" with header_title="Избранное" need_tags=True %}
     <div class="card-list">
     {% for recipe in page %}
-        {% include "includes/recipe_card.html" with recipe=recipe %}
+        {% include "recipes/includes/recipe_card.html" with recipe=recipe %}
+    {% empty %}
+        <p style="font-family: 'Montserrat', sans-serif;">Вы пока не добавили ни одного рецепта.</p>
     {% endfor %}
     </div>
     {% if page.has_other_pages %}

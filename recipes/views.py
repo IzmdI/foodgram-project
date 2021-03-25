@@ -8,22 +8,17 @@ from foodgram.settings import OBJ_PER_PAGE
 
 from .forms import RecipeForm, TagForm
 from .models import Ingredient, Recipe, User
-from .utils import (
-    get_data,
-    get_paginator,
-    get_recipe_ingredients,
-    get_recipe_tags,
-    is_follow,
-)
+from .utils import (get_data, get_paginator, get_recipe_ingredients,
+                    get_recipe_tags, is_follow)
 
 
 def index(request):
     tags = request.GET.getlist("tags")
     form = TagForm(request.GET)
     if tags:
-        recipes = Recipe.objects.filter(tags__slug__in=tags).distinct()
+        recipes = Recipe.objects.by_tags(tags).params_for_user(request.user)
     else:
-        recipes = Recipe.objects.all()
+        recipes = Recipe.objects.params_for_user(request.user)
     page, paginator = get_paginator(request, recipes, OBJ_PER_PAGE)
     context = {"page": page, "paginator": paginator, "form": form}
     return render(request, "recipes/index.html", context)
@@ -34,11 +29,9 @@ def favorites(request):
     tags = request.GET.getlist("tags")
     form = TagForm(request.GET)
     if tags:
-        recipes = request.user.fav_recipes.filter(
-            tags__slug__in=tags
-        ).distinct()
+        recipes = Recipe.objects.by_tags(tags).in_favorites(request.user)
     else:
-        recipes = request.user.fav_recipes.all()
+        recipes = Recipe.objects.in_favorites(request.user)
     page, paginator = get_paginator(request, recipes, OBJ_PER_PAGE)
     context = {"page": page, "paginator": paginator, "form": form}
     return render(request, "recipes/favorites.html", context)
@@ -57,9 +50,11 @@ def profile(request, username):
     form = TagForm(request.GET)
     user = get_object_or_404(User, username=username)
     if tags:
-        user_recipes = user.user_recipes.filter(tags__slug__in=tags).distinct()
+        user_recipes = user.user_recipes.by_tags(tags).params_for_user(
+            request.user
+        )
     else:
-        user_recipes = user.user_recipes.all()
+        user_recipes = user.user_recipes.params_for_user(request.user)
     page, paginator = get_paginator(request, user_recipes, OBJ_PER_PAGE)
     context = {
         "page": page,
@@ -123,24 +118,24 @@ def recipe_delete(request, recipe_id):
 
 
 def recipe_detail(request, recipe_id):
-    recipe = get_object_or_404(Recipe, pk=recipe_id)
-    context = {
-        "recipe": recipe,
-        "is_follow": is_follow(request.user, recipe.author),
-    }
+    recipe = get_object_or_404(
+        Recipe.objects.params_for_user(request.user),
+        pk=recipe_id,
+    )
+    context = {"recipe": recipe}
     return render(request, "recipes/recipe.html", context)
 
 
 @login_required(login_url=reverse_lazy("login"))
 def shoplist(request):
-    recipes = request.user.purch_recipes.all()
+    recipes = Recipe.objects.in_basket(request.user)
     context = {"recipes": recipes}
     return render(request, "recipes/shoplist.html", context)
 
 
 @login_required(login_url=reverse_lazy("login"))
 def download_shoplist(request):
-    recipes = request.user.purch_recipes.all()
+    recipes = Recipe.objects.in_basket(request.user)
     if not recipes:
         return redirect("index")
     ingredients = Ingredient.objects.filter(

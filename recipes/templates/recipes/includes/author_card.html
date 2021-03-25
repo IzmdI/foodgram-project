@@ -1,0 +1,34 @@
+{% load static %}
+{% load recipe_filters %}
+<div class="card-user" data-author="{{ author.id }}">
+    <div class="card-user__header">
+        <h2 class="card-user__title">
+            {% firstof author.get_full_name author.username %}
+        </h2>
+    </div>
+    <div class="card-user__body">
+        <ul class="card-user__items">
+            {% for recipe in author.user_recipes.all|slice:":3" %}
+            <li class="card-user__item">
+                <div class="recipe">
+                    {% include "recipes/includes/recipe_image.html" with author_card=True %}
+                    <h3 class="recipe__title">{{ recipe.title }}</h3>
+                    {% include "recipes/includes/recipe_time.html" with style="recipe__text" %}
+                </div>
+            </li>
+            {% empty %}
+                <p style="font-family: 'Montserrat', sans-serif;">Автор пока не добавил ни одного рецепта.</p>
+            {% endfor %}
+            {% with count=author.user_recipes.count %}
+            {% if count > 3 %}
+            <li class="card-user__item">
+                <a href="{% url 'profile' author.username %}" class="card-user__link link">Ещё {{ count|format_str_by_value }}</a>
+            </li>
+            {% endif %}
+            {% endwith %}
+        </ul>
+    </div>
+    <div class="card-user__footer">
+        <button class="button button_style_light-blue button_size_auto" name="subscribe">Отписаться</button>
+    </div>
+</div>

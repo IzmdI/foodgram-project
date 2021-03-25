@@ -5,14 +5,12 @@
 {% block header %}Войти{% endblock %}
 {% block content %}
 
-    <div class="main__header">
-        <h1 class="main__title">Войти на сайт</h1>
-    </div>
+    {% include "includes/mainheader.html" with header_title="Войти на сайт" %}
     <div class="form-container">
         <form class="form" method="post" action="{% url 'login' %}">
             {% csrf_token %}
             {% for field in form %}
-                {% include "includes/regformfields.html" with field=field %}
+                {% include "users/includes/regformfields.html" with field=field %}
             {% endfor %}
             {% if form.errors %}
                 <span class="form__error">Имя пользователя и пароль не совпадают. Введите правильные данные.</span>

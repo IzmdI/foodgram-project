@@ -1,0 +1,20 @@
+<div class="card" data-id="{{ recipe.id }}">
+    {% include "recipes/includes/recipe_image.html" with card=True %}
+    <div class="card__body">
+        <a class="card__title link" href="{% url 'recipe' recipe.id %}">{{ recipe.title }}</a>
+        <br>
+        <ul class="card__items">
+            {% include "recipes/includes/recipe_tags.html" with style="card__item" %}
+        </ul>
+        <div class="card__items card__items_column">
+            {% include "recipes/includes/recipe_time.html" with style="card__text" %}
+            {% include "recipes/includes/recipe_author.html" with style="card__text" %}
+        </div>
+    </div>
+    <div class="card__footer">
+        {% if request.user.is_authenticated %}
+            {% include "recipes/includes/buttons/purchase_button.html" with card=True %}
+            {% include "recipes/includes/buttons/favorite_button.html" %}
+        {% endif %}
+    </div>
+</div>

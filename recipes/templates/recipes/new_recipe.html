@@ -25,14 +25,7 @@
             <p class="form__label">Теги</p>
                 <div class="form__field-group">
                     <div class="tags">
-                        {% for tag in form.tags %}
-                        <div class="tags__item">
-                            <input type="checkbox" name="{{ tag.data.name }}" value="{{ tag.data.value.value }}" id="{{ tag.id_for_label }}"
-                                   class="tags__checkbox tags__checkbox_style_{{ tag.data.value.instance.color }}"
-                                   {% if tag.data.selected %}checked{% endif %}>
-                            <label for="{{ tag.id_for_label }}" class="tags__label">{{ tag.choice_label }}</label>
-                        </div>
-                        {% endfor %}
+                        {% include "recipes/includes/tagform.html" with taglist=form.tags %}
                     </div>
                 </div>
             </div>
@@ -94,11 +87,7 @@
             </div>
 
             <div class="form__footer">
-                {% if recipe %}
-                <button class="button button_style_blue">Сохранить</button> <a style="margin-left: 2.5em" href="{% url 'recipe_delete' recipe_id=recipe.id %}" class="form__ingredient-link">Удалить</a>
-                {% else %}
-                <button class="button button_style_blue">Создать рецепт</button>
-                {% endif %}
+                {% include "recipes/includes/buttons/push_recipe_button.html" %}
             </div>
         </form>
     </div>

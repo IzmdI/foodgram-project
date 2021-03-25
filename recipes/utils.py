@@ -8,7 +8,7 @@ def get_paginator(request, queryset, value=10):
     paginator = Paginator(queryset, value)
     page_number = request.GET.get("page")
     if page_number is not None:
-        if paginator.num_pages < page_number:
+        if paginator.num_pages < int(page_number):
             page_number = paginator.num_pages
     page = paginator.get_page(page_number)
     return page, paginator

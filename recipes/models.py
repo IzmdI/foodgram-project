@@ -5,6 +5,49 @@ from django.db import models
 User = get_user_model()
 
 
+class RecipeQuerySet(models.QuerySet):
+    def params_for_user(self, user):
+        if user.is_anonymous:
+            return self
+        shoplist = ShopList.objects.filter(
+            recipe=models.OuterRef("pk"), user=user
+        )
+        favorite = Favorite.objects.filter(
+            recipe=models.OuterRef("pk"), user=user
+        )
+        follow = Follow.objects.filter(
+            author=models.OuterRef("author"), user=user
+        )
+        return self.annotate(
+            is_in_basket=models.Exists(shoplist),
+            is_in_favorites=models.Exists(favorite),
+            is_follow=models.Exists(follow),
+        )
+
+    def in_basket(self, user):
+        if user.is_anonymous:
+            return self
+        shoplists = ShopList.objects.filter(
+            recipe=models.OuterRef("pk"), user=user
+        )
+        return self.filter(models.Exists(shoplists)).annotate(
+            is_in_basket=models.Exists(shoplists)
+        )
+
+    def in_favorites(self, user):
+        if user.is_anonymous:
+            return self
+        favorites = Favorite.objects.filter(
+            recipe=models.OuterRef("pk"), user=user
+        )
+        return self.filter(models.Exists(favorites)).annotate(
+            is_in_favorites=models.Exists(favorites)
+        )
+
+    def by_tags(self, tags):
+        return self.filter(tags__slug__in=tags).distinct()
+
+
 class FoodTag(models.Model):
     title = models.CharField(max_length=20, unique=True)
     slug = models.SlugField(unique=True)
@@ -54,18 +97,7 @@ class Recipe(models.Model):
         validators=[MinValueValidator(0), MaxValueValidator(1440)],
     )
     pub_date = models.DateTimeField("Дата публикации", auto_now_add=True)
-    favorites = models.ManyToManyField(
-        User,
-        through="Favorite",
-        related_name="fav_recipes",
-        blank=True,
-    )
-    purchases = models.ManyToManyField(
-        User,
-        through="ShopList",
-        related_name="purch_recipes",
-        blank=True,
-    )
+    objects = RecipeQuerySet.as_manager()
 
     class Meta:
         ordering = ["-pub_date", "title"]

@@ -133,6 +133,7 @@ defaultfiles_backup
 media
 static
 sent_emails
+test_pics
 
 .idea
 .flake8

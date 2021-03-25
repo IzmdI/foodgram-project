@@ -5,24 +5,19 @@
 {% block header %}{% firstof profile.get_full_name profile.username %}{% endblock %}
 {% block content %}
 
-    <div class="main__header">
-        <h1 class="main__title">{% firstof profile.get_full_name profile.username %}</h1>
-        {% include "includes/tagform.html" with taglist=form.tags %}
-    </div>
+    {% include "includes/mainheader.html" with need_tags=True %}
     {% if user.is_authenticated %}
     {% if user != profile %}
     <div class="author-subscribe" data-author="{{ profile.id }}">
-        {% if is_follow %}
-        <p style="padding: 0 0 2em 0;"><button class="button button_style_light-blue button_size_subscribe button_style_blue" name="subscribe">Отписаться от автора</button></p>
-        {% else %}
-        <p style="padding: 0 0 2em 0;"><button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button></p>
-        {% endif %}
+        <p style="padding: 0 0 2em 0;">{% include "recipes/includes/buttons/follow_button.html" with is_follow=is_follow %}</p>
     </div>
     {% endif %}
     {% endif %}
     <div class="card-list">
     {% for recipe in page %}
-        {% include "includes/recipe_card.html" with recipe=recipe %}
+        {% include "recipes/includes/recipe_card.html" with recipe=recipe %}
+    {% empty %}
+        <p style="font-family: 'Montserrat', sans-serif;">Пользователь {% firstof profile.get_full_name profile.username %} пока не добавил ни одного рецепта.</p>
     {% endfor %}
     </div>
     {% if page.has_other_pages %}

@@ -1,0 +1,14 @@
+<div class="main__header">
+    <h1 class="main__title">{% if profile %}
+                            {% firstof profile.get_full_name profile.username %}
+                            {% endif %}
+                            {{ header_title }}
+    </h1>
+    {% if need_tags %}
+        <form method="get" id="tag_form_id" onchange="document.getElementById('tag_form_id').submit()">
+            <ul class="tags">
+                {% include "recipes/includes/tagform.html" with taglist=form.tags %}
+            </ul>
+        </form>
+    {% endif %}
+</div>

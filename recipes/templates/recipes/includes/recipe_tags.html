@@ -1,0 +1,5 @@
+{% for tag in recipe.tags.all %}
+    <li class="{{ style }}">
+        <span class="badge badge_style_{{ tag.color }}">{{ tag.title }}</span>
+    </li>
+{% endfor %}

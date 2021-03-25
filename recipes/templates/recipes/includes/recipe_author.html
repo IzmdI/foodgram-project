@@ -1,0 +1,1 @@
+<p class="{{ style }}"><span class="icon-user"></span> <a href="{% url 'profile' recipe.author %}" style="color: black">{% firstof recipe.author.get_full_name recipe.author.username %}</a></p>
