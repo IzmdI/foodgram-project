@@ -61,20 +61,15 @@ jobs:
           source: "docker-compose.yaml, nginx/default.conf, static"
           target: ${{ env.PROJECT_ROOT }}
       - name: Create envfile
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
-          run: |
-            cd ${{ env.PROJECT_ROOT }}
-            sudo touch .env
-            sudo echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-            sudo echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
-            sudo echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
-            sudo echo DB_HOST="db" >> .env
-            sudo echo DB_PORT="5432" >> .env
-            sudo cat .env
+        run: |
+          cd ${{ env.PROJECT_ROOT }}
+          sudo touch .env
+          sudo echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+          sudo echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+          sudo echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+          sudo echo DB_HOST="db" >> .env
+          sudo echo DB_PORT="5432" >> .env
+          sudo cat .env
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
