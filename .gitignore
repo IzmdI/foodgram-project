@@ -137,6 +137,3 @@ sent_emails
 test_pics
 
 .idea
-
-Dockerfile
-.dockerignore
