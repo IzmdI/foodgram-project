@@ -1,6 +1,20 @@
 version: '3.8'
-​
+
+​volumes:
+  postgres_data:
+  static_data:
+  media_data:
+  nginx_config:
+
 services:
+  db:
+    image: postgres:13.2
+    container_name: db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    restart: always
+    env_file:
+      - ./.env
   web:
     image: izmdi/foodgram:latest
     container_name: web
@@ -12,16 +26,6 @@ services:
       - db
     env_file:
       - ./.env
-​
-  db:
-    image: postgres:13.2
-    container_name: db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    restart: always
-    env_file:
-      - ./.env
-​
   nginx:
     image: nginx:1.19
     container_name: nginx
@@ -34,9 +38,3 @@ services:
     restart: always
     depends_on:
       - web
-​
-volumes:
-  postgres_data:
-  static_data:
-  media_data:
-  nginx_config:
