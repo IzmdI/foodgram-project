@@ -71,18 +71,18 @@ jobs:
             FILE=.env
             if [ -f "$FILE" ]
             then
-              echo "$FILE exists and will removed"
-              rm $FILE
+              suso echo "$FILE exists and will removed"
+              suso rm $FILE
             else
-              echo "$FILE does not exist"
+              suso echo "$FILE does not exist"
             fi
-            echo "Add new $FILE"
-            touch $FILE
-            echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> $FILE
-            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> $FILE
-            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> $FILE
-            echo DB_HOST=${{ secrets.DB_HOST }} >> $FILE
-            echo DB_PORT=${{ secrets.DB_PORT }} >> $FILE
+            suso echo "Add new $FILE"
+            suso touch $FILE
+            suso echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> $FILE
+            suso echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> $FILE
+            suso echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> $FILE
+            suso echo DB_HOST=${{ secrets.DB_HOST }} >> $FILE
+            suso echo DB_PORT=${{ secrets.DB_PORT }} >> $FILE
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
