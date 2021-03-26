@@ -1,15 +1,16 @@
 import os
 
+ENV = os.environ
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "default")
+SECRET_KEY = ENV.get("SECRET_KEY", "default")
 
 DEBUG = False
 
 ALLOWED_HOSTS = [
     "*",
 ]
-# workflow test
 
 INTERNAL_IPS = [
     "localhost",
@@ -67,12 +68,12 @@ WSGI_APPLICATION = "foodgram.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "foodgram",
-        "USER": os.environ.get("POSTGRES_USER"),
-        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
+        "ENGINE": ENV.get("DB_ENGINE"),
+        "NAME": ENV.get("DB_NAME"),
+        "USER": ENV.get("POSTGRES_USER"),
+        "PASSWORD": ENV.get("POSTGRES_PASSWORD"),
+        "HOST": ENV.get("DB_HOST"),
+        "PORT": ENV.get("DB_PORT"),
     }
 }
 
@@ -103,7 +104,6 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "staticfiles")]
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
