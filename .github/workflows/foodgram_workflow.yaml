@@ -60,6 +60,29 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           source: "docker-compose.yaml, nginx/default.conf"
           target: ${{ env.PROJECT_ROOT }}
+      - name: Set environment variables
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          script: |
+            FILE=.env
+            if [ -f "$FILE" ]
+            then
+              echo "$FILE exists and will removed"
+              rm $FILE
+            else
+              echo "$FILE does not exist"
+            fi
+            echo "Add new $FILE"
+            touch $FILE
+            echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> $FILE
+            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> $FILE
+            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> $FILE
+            echo DB_HOST=${{ secrets.DB_HOST }} >> $FILE
+            echo DB_PORT=${{ secrets.DB_PORT }} >> $FILE
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:

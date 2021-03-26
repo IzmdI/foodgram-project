@@ -2,7 +2,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = "!l!qn=vq(ztv!zivo*0nmf=9u_vfeqgb-d**cqc%f)#@wv5jw5"
+SECRET_KEY = os.environ.get("SECRET_KEY", "default")
 
 DEBUG = False
 
@@ -69,10 +69,10 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "foodgram",
-        "USER": "postgres",
-        "PASSWORD": "3oh7z14bx",
-        "HOST": "db",
-        "PORT": "5432",
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
     }
 }
 
