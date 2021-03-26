@@ -13,7 +13,7 @@ services:
     env_file:
       - ./.env
   web:
-    image: izmdi/foodgram:0.2
+    image: izmdi/foodgram:0.3
     volumes:
       - ./static:/var/nginx/static/
       - ./media:/var/nginx/media/
