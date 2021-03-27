@@ -39,9 +39,9 @@ def get_recipe_ingredients(recipe, ingredients, ing_amounts):
 def get_data(request):
     data = request.POST
     tags = data.getlist("tags")
-    ingredients = {
-        data.get(key): None for key in data if key.startswith("nameIngredient")
-    }
+    ingredients = [
+        data.get(key) for key in data if key.startswith("nameIngredient")
+    ]
     ing_amounts = [
         data.get(key) for key in data if key.startswith("valueIngredient")
     ]

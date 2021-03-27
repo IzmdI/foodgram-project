@@ -18,6 +18,9 @@
                 <label for="{{ form.title.id_for_label }}" class="form__label">Название рецепта</label>
                 <div class="form__field-group">
                     {{ form.title|addclass:"form__input" }}
+                    {% if form.title.errors %}
+                    <span id="{{ form.title.id_for_label }}-error" class="form__error">{{ form.title.errors|safe }}</span>
+                    {% endif %}
                 </div>
             </div>
 
@@ -26,6 +29,9 @@
                 <div class="form__field-group">
                     <div class="tags">
                         {% include "recipes/includes/tagform.html" with taglist=form.tags %}
+                        {% if form.tags.errors %}
+                        <span id="{{ form.title.id_for_label }}-error" class="form__error">{{ form.tags.errors|safe }}</span>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -58,6 +64,9 @@
                             {% endfor %}
                         {% endif %}
                     </div>
+                    {% if form.ingredients.errors %}
+                    <span id="{{ form.title.id_for_label }}-error" class="form__error">{{ form.ingredients.errors|safe }}</span>
+                    {% endif %}
                 </div>
             </div>
 
@@ -66,6 +75,9 @@
                 <div class="form__field-group form__field-group_time">
                     {{ form.time|addclass:"form__input" }}
                     <label for="{{ form.time.id_for_label }}" class="form__label">минут</label>
+                    {% if form.time.errors %}
+                    <span id="{{ form.time.id_for_label }}-error" class="form__error">{{ form.time.errors|safe }}</span>
+                    {% endif %}
                 </div>
             </div>
 
@@ -73,6 +85,9 @@
                 <label for="{{ form.description.id_for_label }}" class="form__label">Описание</label>
                 <div class="form__field-group">
                     {{ form.description|addclass:"form__textarea" }}
+                    {% if form.description.errors %}
+                    <span id="{{ form.description.id_for_label }}-error" class="form__error">{{ form.description.errors|safe }}</span>
+                    {% endif %}
                 </div>
             </div>
 
@@ -81,6 +96,9 @@
                 <div class="form__field-group">
                     <label for="{{ form.image.id_for_label }}" class="form__file-button">Выбрать файл</label>
                     {{ form.image|addclass:"form__file" }}
+                    {% if form.image.errors %}
+                    <span id="{{ form.image.id_for_label }}-error" class="form__error">{{ form.image.errors|safe }}</span>
+                    {% endif %}
                 </div>
                 <div class="form__upload-file"></div>
                 <img class="form__upload-delete" src="{% static 'images/delete.svg' %}" alt="delete">

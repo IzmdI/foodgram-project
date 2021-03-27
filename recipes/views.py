@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError, transaction
 from django.db.models import Sum
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 
@@ -71,13 +72,16 @@ def new_recipe(request):
     form = RecipeForm(request.POST or None, files=request.FILES or None)
     tags, ingredients, ing_amounts = get_data(request)
     if form.is_valid():
-        recipe = form.save(commit=False)
-        recipe.author = request.user
-        recipe.save()
-        get_recipe_tags(recipe, tags)
-        get_recipe_ingredients(recipe, ingredients, ing_amounts)
-        return redirect("index")
-
+        try:
+            with transaction.atomic():
+                recipe = form.save(commit=False)
+                recipe.author = request.user
+                recipe.save()
+                get_recipe_tags(recipe, tags)
+                get_recipe_ingredients(recipe, ingredients, ing_amounts)
+                return redirect("index")
+        except IntegrityError:
+            raise HttpResponseBadRequest
     context = {"form": form}
     return render(request, "recipes/new_recipe.html", context)
 
@@ -94,15 +98,18 @@ def recipe_edit(request, recipe_id):
     )
     tags, ingredients, ing_amounts = get_data(request)
     if form.is_valid():
-        recipe = form.save(commit=False)
-        recipe.author = recipe_author
-        recipe.tags.clear()
-        recipe.ingredients.clear()
-        recipe.save()
-        get_recipe_tags(recipe, tags)
-        get_recipe_ingredients(recipe, ingredients, ing_amounts)
-        return redirect("recipe", recipe_id=recipe_id)
-
+        try:
+            with transaction.atomic():
+                recipe = form.save(commit=False)
+                recipe.author = recipe_author
+                recipe.tags.clear()
+                recipe.ingredients.clear()
+                recipe.save()
+                get_recipe_tags(recipe, tags)
+                get_recipe_ingredients(recipe, ingredients, ing_amounts)
+                return redirect("recipe", recipe_id=recipe_id)
+        except IntegrityError:
+            raise HttpResponseBadRequest
     context = {"form": form, "recipe": recipe}
     return render(request, "recipes/new_recipe.html", context)
 
@@ -112,7 +119,6 @@ def recipe_delete(request, recipe_id):
     recipe = get_object_or_404(Recipe, pk=recipe_id)
     if request.user != recipe.author and not request.user.is_superuser:
         return redirect("recipe", recipe_id=recipe_id)
-
     recipe.delete()
     return redirect("profile", username=recipe.author.username)
 
