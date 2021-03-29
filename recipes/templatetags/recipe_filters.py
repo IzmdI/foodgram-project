@@ -8,14 +8,16 @@ def url_replace(context, **kwargs):
     query = context["request"].GET.copy()
     query.pop("page", None)
     query.update(kwargs)
+    tags = query.getlist("tags")
+    if tags and len(tags) == 3:
+        query.pop("tags", None)
     return query.urlencode()
 
 
 @register.filter
 def format_str_by_value(value):
-    if value == 4:
-        return f"{value-3} рецепт..."
-    elif 5 <= value <= 7:
-        return f"{value-3} рецепта..."
-    else:
-        return f"{value-3} рецептов..."
+    if value == 1:
+        return "%d рецепт..." % value
+    elif 2 <= value <= 4:
+        return "%d рецепта..." % value
+    return "%d рецептов..." % value

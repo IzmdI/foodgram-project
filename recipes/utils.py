@@ -6,20 +6,19 @@ from .models import Follow, FoodTag, Ingredient, IngredientAmount
 
 def get_paginator(request, queryset, value=10):
     paginator = Paginator(queryset, value)
-    page_number = request.GET.get("page")
-    if page_number is not None:
-        if paginator.num_pages < int(page_number):
-            page_number = paginator.num_pages
-    page = paginator.get_page(page_number)
-    return page, paginator
+    page_num = request.GET.get("page")
+    if page_num is not None:
+        if paginator.num_pages < int(page_num):
+            return None, paginator, page_num
+    page = paginator.get_page(page_num)
+    return page, paginator, page_num
 
 
 def is_follow(user, author):
-    if user.is_anonymous:
-        is_follow = False
-    else:
-        is_follow = Follow.objects.filter(user=user, author=author).exists()
-    return is_follow
+    return (
+        not user.is_anonymous
+        and Follow.objects.filter(user=user, author=author).exists()
+    )
 
 
 def get_recipe_tags(recipe, tags):

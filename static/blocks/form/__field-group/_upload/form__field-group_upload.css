@@ -1,0 +1,4 @@
+.form__field-group_upload {
+    display: flex;
+    flex-wrap: wrap;
+}

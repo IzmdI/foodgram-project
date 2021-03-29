@@ -10,8 +10,24 @@ const addIng = document.querySelector('#addIng');
 const fileUpload = document.querySelector('#id_image')
 const fileUploadName = document.querySelector('.form__upload-file')
 
+const fileUploadWrapper = document.querySelector('.form__upload-wrapper')
+const deleteButton = document.querySelector('.form__upload-delete');
+const clearCheckbox = document.querySelector('#image-clear_id')
+
 const api = new Api(apiUrl);
 const header = new Header(counterId);
+
+if (fileUploadName.textContent) {
+    fileUploadWrapper.classList.toggle('form__upload-wrapper_active')
+}
+
+deleteButton.addEventListener('click', () => {
+  fileUploadName.textContent = '';
+    if (clearCheckbox) {
+        clearCheckbox.checked = true
+    }
+  fileUploadWrapper.classList.toggle('form__upload-wrapper_active')
+})
 
 const readFile = (event) => {
   let file = event.target.files[0];
@@ -20,16 +36,12 @@ const readFile = (event) => {
 
   reader.onload = function() {
     fileUploadName.textContent = file.name
-
-    fileUploadName.classList.add('form__upload-file_active')
-    const deleteButton = document.querySelector('.form__upload-delete');
-    deleteButton.classList.add('form__upload-delete_active')
-    deleteButton.addEventListener('click', () => {
-          fileUploadName.textContent = '';
-          event.target.value = ''
-          fileUploadName.classList.remove('form__upload-file_active')
-          deleteButton.classList.remove('form__upload-delete_active')
-    })
+      if (!fileUploadWrapper.classList.contains('form__upload-wrapper_active')) {
+        fileUploadWrapper.classList.toggle('form__upload-wrapper_active')
+      }
+      if (clearCheckbox) {
+        clearCheckbox.checked = false
+    }
   };
 
   reader.onerror = function() {
@@ -38,6 +50,11 @@ const readFile = (event) => {
 
 }
 
+const clearUpload = (event) => {
+    event.target.value = ''
+}
+
+fileUpload.addEventListener('click', clearUpload)
 fileUpload.addEventListener('change', readFile)
 
 const defineInitialIndex = function () {
@@ -64,12 +81,12 @@ function Ingredients() {
     };
     // Добавление элемента из инпута
     const addIngredient = (e) => {
-        if(nameIngredient.value && cantidad.value > 0) {
+        if(nameIngredient.value && cantidad.value > 0 && cantidad.value < 10000) {
             const data = getValue();
             const elem = document.createElement('div');
             elem.classList.add('form__field-item-ingredient');
             elem.id = `ing_${cur}`;
-            elem.innerHTML = `<span> ${data.name} ${data.value}${data.units}</span> <span class="form__field-item-delete"></span>
+            elem.innerHTML = `<span> ${data.name} ${data.value} ${data.units}</span> <span class="form__field-item-delete"></span>
                              <input id="nameIngredient_${cur}" name="nameIngredient_${cur}" type="hidden" value="${data.name}">
                              <input id="valueIngredient_${cur}" name="valueIngredient_${cur}" type="hidden" value="${data.value}">
                              <input id="unitsIngredient_${cur}" name="unitsIngredient_${cur}" type="hidden" value="${data.units}">`;

@@ -6,7 +6,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = ENV.get("SECRET_KEY", "default")
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "*",
@@ -115,10 +115,6 @@ LOGOUT_REDIRECT_URL = "index"
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 
-SITE_ID = 1
-
-OBJ_PER_PAGE = 6
-
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
@@ -130,3 +126,7 @@ REST_FRAMEWORK = {
 
 CSRF_USE_SESSIONS = True
 CSRF_COOKIE_HTTPONLY = True
+
+SITE_ID = 1
+
+OBJ_PER_PAGE = 6

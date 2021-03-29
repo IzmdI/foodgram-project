@@ -4,7 +4,7 @@
         {% thumbnail recipe.image "480x480" crop="center" upscale=True as im %}
             <img class="single-card__image" src="{{ im.url }}" alt="{{ recipe.title }}">
         {% empty %}
-            <img src="{% static 'images/no_img.jpg' %}" alt="{{ recipe.title }}" class="single-card__image">
+            {% include "recipes/includes/elements/empty_image.html" %}
     {% endthumbnail %}
 {% endif %}
 {% if card %}
@@ -12,7 +12,7 @@
         {% thumbnail recipe.image "360x240" crop="center" upscale=True as im %}
             <a href="{% url 'recipe' recipe.id %}" class="link"><img src="{{ im.url }}" alt="{{ recipe.title }}" class="card__image"></a>
         {% empty %}
-            <a href="{% url 'recipe' recipe.id %}" class="link"><img src="{% static 'images/no_img.jpg' %}" alt="{{ recipe.title }}" class="card__image"></a>
+            <a href="{% url 'recipe' recipe.id %}" class="link">{% include "recipes/includes/elements/empty_image.html" %}</a>
     {% endthumbnail %}
 {% endif %}
 {% if author_card %}
@@ -20,7 +20,8 @@
         {% thumbnail recipe.image "72x72" crop="center" upscale=True as im %}
             <a href="{% url 'recipe' recipe.id %}" class="link"><img src="{{ im.url }}" alt="{{ recipe.title }}" class="recipe__image"></a>
         {% empty %}
-            <a href="{% url 'recipe' recipe.id %}" class="link"><img src="{% static 'images/no_img.jpg' %}" alt="{{ recipe.title }}" class="recipe__image"></a>
+            {% include "recipes/includes/elements/empty_image.html" %}
+            <a href="{% url 'recipe' recipe.id %}" class="link">{% include "recipes/includes/elements/empty_image.html" %}</a>
     {% endthumbnail %}
 {% endif %}
 {% if shoplist_card %}
@@ -28,6 +29,6 @@
         {% thumbnail recipe.image "90x90" crop="center" upscale=True as im %}
             <a href="{% url 'recipe' recipe.id %}" class="link"><img src="{{ im.url }}" alt="{{ recipe.title }}" class="recipe__image recipe__image_big"></a>
         {% empty %}
-            <a href="{% url 'recipe' recipe.id %}" class="link"><img src="{% static 'images/no_img.jpg' %}" alt="{{ recipe.title }}" class="recipe__image recipe__image_big"></a>
+            <a href="{% url 'recipe' recipe.id %}" class="link">{% include "recipes/includes/elements/empty_image.html" %}</a>
     {% endthumbnail %}
 {% endif %}

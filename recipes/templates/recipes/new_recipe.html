@@ -29,10 +29,10 @@
                 <div class="form__field-group">
                     <div class="tags">
                         {% include "recipes/includes/tagform.html" with taglist=form.tags %}
-                        {% if form.tags.errors %}
-                        <span id="{{ form.title.id_for_label }}-error" class="form__error">{{ form.tags.errors|safe }}</span>
-                        {% endif %}
                     </div>
+                    {% if form.tags.errors %}
+                    <span id="{{ form.title.id_for_label }}-error" class="form__error">{{ form.tags.errors|safe }}</span>
+                    {% endif %}
                 </div>
             </div>
 
@@ -52,7 +52,7 @@
                         {% if recipe %}
                             {% for item in recipe.ing_amounts.all %}
                             <div class="form__field-item-ingredient" id="{{ item.ingredient.id }}">
-                                <span> {{ item.ingredient.name }} {{ item.amount }} {{ item.ingredient.measure }}</span>
+                                <span>{{ item.ingredient.name }} {{ item.amount }} {{ item.ingredient.measure }}</span>
                                 <span class="form__field-item-delete"></span>
                                 <input id="nameIngredient_{{ item.ingredient.id }}" name="nameIngredient_{{ item.ingredient.id }}"
                                        type="hidden" value="{{ item.ingredient.name }}">
@@ -93,17 +93,23 @@
 
             <div class="form__group form__group_upload">
                 <span class="form__label">Загрузить фото</span>
-                <div class="form__field-group">
-                    <label for="{{ form.image.id_for_label }}" class="form__file-button">Выбрать файл</label>
-                    {{ form.image|addclass:"form__file" }}
+                <div class="form__field-group form__field-group_upload">
+                    <label for="id_image" class="form__file-button">Выбрать файл</label>
+                    <input type="file" name="image" accept="image/*" class="form__file" id="id_image">
+                    <div class="form__upload-wrapper">
+                        {% if recipe %}
+                        <div class="form__upload-file">{{ recipe.image.name|cut:"recipes/" }}</div>
+                        <input type="checkbox" name="image-clear" id="image-clear_id" hidden>
+                        {% else %}
+                        <div class="form__upload-file"></div>
+                        {% endif %}
+                        <img class="form__upload-delete" src="{% static 'images/delete.svg' %}" alt="delete">
+                    </div>
                     {% if form.image.errors %}
                     <span id="{{ form.image.id_for_label }}-error" class="form__error">{{ form.image.errors|safe }}</span>
                     {% endif %}
                 </div>
-                <div class="form__upload-file"></div>
-                <img class="form__upload-delete" src="{% static 'images/delete.svg' %}" alt="delete">
             </div>
-
             <div class="form__footer">
                 {% include "recipes/includes/buttons/push_recipe_button.html" %}
             </div>

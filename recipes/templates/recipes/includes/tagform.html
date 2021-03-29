@@ -1,7 +1,7 @@
 {% for tag in taglist %}
     <li class="tags__item">
         <input type="checkbox" name="tags" value="{{ tag.data.value }}" id="{{ tag.id_for_label }}"
-               class="tags__checkbox tags__checkbox_style_{{ tag.data.value.instance.color }}"
+               class="tags__checkbox tags__checkbox_style_{{ tag.data.value.instance.color }} {% if tagsfull %}tags__checkbox_active{% endif %}"
                {% if tag.data.selected %}checked{% endif %}>
         <label for="{{ tag.id_for_label }}" class="tags__label">{{ tag.choice_label }}</label>
     </li>

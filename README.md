@@ -8,13 +8,53 @@
 
 Вам понадобится [Docker](https://www.docker.com/). Просто склонируйте репозиторий и запустите docker-compose.
 
+Во-первых, создайте виртуальное окружение и работайте в нём. Выполнять команду нужно в консоли, находясь в директории репозитория.
+
+```
+python3 -m venv venv
+```
+
+В Windows для запуска виртуального окружения выполните такую команду:
+
+```
+source venv/Scripts/activate
+```
+
+В macOS или Linux виртуальное окружение запускается так:
+
+```
+source venv/bin/activate
+```
+
+В консоли появится уведомление о том, что вы работаете в виртуальном окружении: строка `(venv)` будет предварять все команды.
+
+Сначала следует обновить менеджер пакетов pip:
+
+```
+python3 -m pip install --upgrade pip
+```
+
+После следует установить зависимости:
+
+```
+pip install -r requirements.txt
+```
+
+Остановить работу виртуального окружения можно командой:
+
+```
+deactivate
+```
+
+Далее нужно установить [Docker](https://www.docker.com/) и выполнить в консоли `docker-compose up`, находясь в директории репозитория.
+
 ### Установка
 
 Во-первых, откройте `.env.example`, задайте в нём переменные окружения и сохраните как `.env` без `.example`.
-ВАЖНО: Установите свой пароль для доступа к базе данных!
+ВАЖНО: Установите свои секретный ключ для Django и пароль для доступа к базе данных!
 
 ```
-SECRET_KEY="django_secret_key"
+SECRET_KEY="django_secret_key" # Придумайте свой
 DB_ENGINE=django.db.backends.postgresql
 DB_NAME=postgres
 POSTGRES_USER=somepostgresuser
@@ -23,41 +63,47 @@ DB_HOST=db
 DB_PORT=5432
 ```
 
-Запустите сборку контейнеров в консоли.
+Запустите сборку контейнеров:
 
 ```
 docker-compose up
 ```
 
-Foodgram будет развёрнут через Gunicorn с Базой Данных PostgreSQL на ващей локальной машине, номер порта 8000.
+Foodgram будет развёрнут через Gunicorn с Базой Данных PostgreSQL на ващей локальной машине, номер порта 8000:
 
 ```
-localhost:8000
+localhost:8000 %ИЛИ% 127.0.0.1:8000
 ```
 
-Создайте администратора как в обычном Django-проекте. Лучше делать это внутри контейнера.
+Создайте администратора как в обычном Django-проекте. Лучше делать это внутри контейнера:
 
 ```
 docker exec -it <CONTAINER ID> bash
 ```
 
 ```
-python manage.py createsuperuser
+python3 manage.py createsuperuser
 ```
 
-Чтобы выйти из контейнера выполните команду `exit`.
+Также для корректной работы необходимо выполнить миграции:
+
+```
+python3 manage.py migrate
+```
+
+Чтобы выйти из контейнера выполните команду `exit`:
 
 ```
 exit
 ```
 
-Отлично! Теперь можете управлять проектом из админки.
+Отлично! Теперь можете управлять проектом из админки:
 
 ```
 localhost:8000/admin
 ```
 
-Можете посмотреть, как выглядит проект.
+Для обзора проект доступен по следующему адресу:
 
 ```
 http://178.154.194.99/
@@ -72,7 +118,7 @@ http://178.154.194.99/
 python3 manage.py shell  
 
 >>> from django.contrib.contenttypes.models import ContentType
->>> ContentType.objects.all().delete()
+>>> ContentType.objects.delete()
 >>> quit()
 
 python3 manage.py loaddata dump.json 

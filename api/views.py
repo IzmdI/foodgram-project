@@ -1,6 +1,6 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.http.response import JsonResponse
 from rest_framework import mixins, status, viewsets
-from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
 from recipes.models import Favorite, Follow, Ingredient, Recipe, ShopList, User
@@ -20,24 +20,52 @@ class AddRemoveMixin(
 
     def perform_create(self, serializer):
         if self.model_lookup_field == "recipe":
-            recipe = get_object_or_404(Recipe, pk=self.request.data["id"])
+            try:
+                recipe = Recipe.objects.get(pk=self.request.data["id"])
+            except ObjectDoesNotExist:
+                return JsonResponse(
+                    {"success": False},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             serializer.save(user=self.request.user, recipe=recipe)
         elif self.model_lookup_field == "author":
-            author = get_object_or_404(User, pk=self.request.data["id"])
+            try:
+                author = User.objects.get(pk=self.request.data["id"])
+            except ObjectDoesNotExist:
+                return JsonResponse(
+                    {"success": False},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             serializer.save(user=self.request.user, author=author)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return JsonResponse({"success": True}, status=status.HTTP_201_CREATED)
 
     def get_object(self):
         obj = None
         if self.model_lookup_field == "recipe":
-            obj = get_object_or_404(
-                self.model,
-                recipe__pk=self.kwargs["pk"],
-                user=self.request.user,
-            )
+            try:
+                obj = self.model.objects.get(
+                    recipe__pk=self.kwargs["pk"], user=self.request.user
+                )
+            except ObjectDoesNotExist:
+                return JsonResponse(
+                    {"success": False},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
         elif self.model_lookup_field == "author":
-            obj = get_object_or_404(
-                Follow, author__id=self.kwargs["pk"], user=self.request.user
-            )
+            try:
+                obj = self.model.objects.get(
+                    author__id=self.kwargs["pk"], user=self.request.user
+                )
+            except ObjectDoesNotExist:
+                return JsonResponse(
+                    {"success": False},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
         return obj
 
     def destroy(self, request, *args, **kwargs):

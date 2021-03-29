@@ -130,7 +130,8 @@ dmypy.json
 
 defaultfiles_backup
 
-media
+media/cache
+media/recipes
 static/admin/
 static/rest_framework/
 sent_emails

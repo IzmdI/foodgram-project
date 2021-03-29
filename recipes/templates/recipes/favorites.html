@@ -10,7 +10,7 @@
     {% for recipe in page %}
         {% include "recipes/includes/recipe_card.html" with recipe=recipe %}
     {% empty %}
-        <p style="font-family: 'Montserrat', sans-serif;">Вы пока не добавили ни одного рецепта.</p>
+        <p style="font-family: 'Montserrat', sans-serif;">Рецептов нет.</p>
     {% endfor %}
     </div>
     {% if page.has_other_pages %}

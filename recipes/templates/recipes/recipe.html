@@ -6,7 +6,7 @@
 {% block content %}
 
     <div class="single-card" data-id="{{ recipe.id }}" data-author="{{ recipe.author.id }}">
-        {% include "recipes/includes/recipe_image.html" with singlepage=True %}
+        {% include "recipes/includes/elements/image.html" with singlepage=True %}
         <div class="single-card__info">
             <div class="single-card__header-info">
                 <h1 class="single-card__title">{{ recipe.title }}</h1>
@@ -17,13 +17,13 @@
                 {% endif %}
             </div>
             <ul class="single-card__items">
-                {% include "recipes/includes/recipe_tags.html" with style="single-card__item" %}
+                {% include "recipes/includes/elements/tags.html" with style="single-card__item" %}
             </ul>
             <div class="single-card__items single-card__items_column">
-                {% include "recipes/includes/recipe_time.html" with style="single-card__text" %}
+                {% include "recipes/includes/elements/time.html" with style="single-card__text" %}
                 <ul class="single-card__items">
                     <li class="single-card__item">
-                        {% include "recipes/includes/recipe_author.html" with style="single-card__text" %}
+                        {% include "recipes/includes/elements/author.html" with style="single-card__text" %}
                     </li>
                     {% if request.user.is_superuser or request.user == recipe.author %}
                     <li class="single-card__item"><a style="margin-left: 2.5em" href="{% url 'recipe_edit' recipe_id=recipe.id %}" class="single-card__text">Редактировать рецепт</a></li>

@@ -1,5 +1,5 @@
-{% if recipe.is_in_basket %}
-    <button class="button button_style_light-blue-outline" name="purchases"><span class="icon-check button__icon"></span>Рецепт добавлен</button>
-{% else %}
-    <button class="button {% if card %}button_style_light-blue{% else %}button_style_blue{% endif %}" name="purchases" data-out><span class="icon-plus {% if card %}button__icon{% endif %}"></span>Добавить в покупки</button>
-{% endif %}
+<button class="button {% if recipe.is_in_basket %}button_style_light-blue-outline{% else %}
+{% if card %}button_style_light-blue{% else %}button_style_blue{% endif %}{% endif %}"
+        name="purchases" {% if not recipe.is_in_basket %}data-out{% endif %}><span
+        class="{% if recipe.is_in_basket %}icon-check{% else %}icon-plus{% endif %} button__icon">
+ </span>{{ recipe.is_in_basket|yesno:"Рецепт добавлен,Добавить в покупки" }}</button>

@@ -17,7 +17,7 @@ class RecipeAdmin(admin.ModelAdmin):
     )
     search_fields = (
         "title",
-        "author",
+        "author__username",
     )
     list_filter = (
         "tags",
@@ -32,6 +32,7 @@ class IngredientAdmin(admin.ModelAdmin):
         "measure",
     )
     search_fields = ("name",)
+    list_filter = ("measure",)
 
 
 class FoodTagAdmin(admin.ModelAdmin):

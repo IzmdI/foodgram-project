@@ -1,5 +1,2 @@
-{% if is_follow %}
-<button class="button button_style_light-blue button_size_subscribe button_style_blue" name="subscribe">Отписаться от автора</button>
-{% else %}
-<button class="button button_style_light-blue button_size_subscribe" name="subscribe" data-out>Подписаться на автора</button>
-{% endif %}
+<button class="button button_style_light-blue button_size_subscribe {% if is_follow %}button_style_blue{% endif %}"
+        name="subscribe" {% if not is_follow %}data-out{% endif %}>{{ is_follow|yesno:"Отписаться от автора,Подписаться на автора" }}</button>

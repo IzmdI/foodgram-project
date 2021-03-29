@@ -11,9 +11,9 @@
             {% for recipe in author.user_recipes.all|slice:":3" %}
             <li class="card-user__item">
                 <div class="recipe">
-                    {% include "recipes/includes/recipe_image.html" with author_card=True %}
+                    {% include "recipes/includes/elements/image.html" with author_card=True %}
                     <h3 class="recipe__title">{{ recipe.title }}</h3>
-                    {% include "recipes/includes/recipe_time.html" with style="recipe__text" %}
+                    {% include "recipes/includes/elements/time.html" with style="recipe__text" %}
                 </div>
             </li>
             {% empty %}
@@ -22,7 +22,7 @@
             {% with count=author.user_recipes.count %}
             {% if count > 3 %}
             <li class="card-user__item">
-                <a href="{% url 'profile' author.username %}" class="card-user__link link">Ещё {{ count|format_str_by_value }}</a>
+                <a href="{% url 'profile' author.username %}" class="card-user__link link">Ещё {{ count|add:"-3"|format_str_by_value }}</a>
             </li>
             {% endif %}
             {% endwith %}

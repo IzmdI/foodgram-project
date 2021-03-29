@@ -11,17 +11,24 @@
     width: 100%;
 }
 
+.form__upload-wrapper {
+    display: none;
+    align-items: center;
+}
+
+.form__upload-wrapper_active {
+    display: flex;
+}
+
 .form__upload-file {
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
     line-height: 22px;
     color: #000000;
-    display: none;
-    font-family: 'Montserrat', sans-serif;
-}
-.form__upload-file_active {
     display: inline;
+    font-family: 'Montserrat', sans-serif;
+    overflow-wrap: anywhere;
 }
 
 .form__upload-delete {
@@ -32,9 +39,5 @@
     outline: none;
     padding: 0;
     margin: 0 0 0 8px;
-    display: none;
-}
-
-.form__upload-delete_active {
     display: inline-block;
 }

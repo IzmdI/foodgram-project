@@ -1,6 +1,8 @@
 from django import forms
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import FoodTag, Ingredient, Recipe
+from .utils import get_data, get_recipe_ingredients, get_recipe_tags
 
 
 class TagForm(forms.Form):
@@ -41,6 +43,10 @@ class RecipeForm(forms.ModelForm, TagForm):
 
     def clean(self):
         super(RecipeForm, self).clean()
+        if not self.cleaned_data["tags"]:
+            self.errors["tags"] = self.error_class(
+                ["Выберите хотя бы один тэг"]
+            )
         ingredients = [
             self.data.get(key)
             for key in self.data
@@ -51,13 +57,38 @@ class RecipeForm(forms.ModelForm, TagForm):
             for key in self.data
             if key.startswith("valueIngredient")
         ]
+        if not ingredients:
+            self.errors["ingredients"] = self.error_class(
+                ["Добавьте хотя бы один ингредиент"]
+            )
         for ingredient, amount in zip(ingredients, ing_amounts):
             if not Ingredient.objects.filter(name=ingredient).exists():
                 self.errors["ingredients"] = self.error_class(
-                    ["Такого ингредиента нет в базе"]
+                    ["Ингредиента нет в базе"]
                 )
-            if int(amount) < 0:
+            if int(amount) < 0 or int(amount) > 10000:
                 self.errors["ingredients"] = self.error_class(
-                    ["Количество не может быть отрицательным"]
+                    ["Количество не может быть отрицательным или больше 10000"]
                 )
         return self.cleaned_data
+
+    def save(self, request):
+        if self.errors:
+            raise ValueError(
+                "The %s could not be %s because the data didn't validate."
+                % (
+                    self.instance._meta.object_name,
+                    "created" if self.instance._state.adding else "changed",
+                )
+            )
+        tags, ingredients, ing_amounts = get_data(request)
+        self.save_m2m = self._save_m2m
+        try:
+            self.instance.author
+        except ObjectDoesNotExist:
+            self.instance.author = request.user
+        self.instance.save()
+        self._save_m2m()
+        get_recipe_tags(self.instance, tags)
+        get_recipe_ingredients(self.instance, ingredients, ing_amounts)
+        return self.instance

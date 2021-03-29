@@ -1,0 +1,6 @@
+{% load static %}
+<img src="{% static 'images/no_img.jpg' %}" alt="{{ recipe.title }}"
+     class="{% if singlepage %}single-card__image{% endif %}
+            {% if card %}card__image{% endif %}
+            {% if author_card or shoplist_card %}recipe__image{% endif %}
+            {% if shoplist_card %}recipe__image_big{% endif %}">
