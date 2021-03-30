@@ -11,7 +11,6 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "*",
 ]
-# workflow test
 
 INTERNAL_IPS = [
     "localhost",
