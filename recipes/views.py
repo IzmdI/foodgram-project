@@ -1,8 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.db import IntegrityError, transaction
 from django.db.models import F, Sum
-from django.http import FileResponse, HttpResponseBadRequest
+from django.http import FileResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 
@@ -10,12 +9,11 @@ from foodgram.settings import OBJ_PER_PAGE
 
 from .forms import RecipeForm, TagForm
 from .models import IngredientAmount, Recipe, User
-from .utils import get_paginator, is_follow
+from .utils import get_paginator, is_follow, tags_check
 
 
 def index(request):
-    tags = request.GET.getlist("tags")
-    tagsfull = True if not tags or len(tags) == 3 else False
+    tags, tagsfull = tags_check(request)
     if len(tags) == 3:
         return redirect("index")
 
@@ -40,8 +38,7 @@ def index(request):
 
 @login_required(login_url=reverse_lazy("login"))
 def favorites(request):
-    tags = request.GET.getlist("tags")
-    tagsfull = True if not tags or len(tags) == 3 else False
+    tags, tagsfull = tags_check(request)
     if len(tags) == 3:
         return redirect("favorites")
 
@@ -84,8 +81,7 @@ def follows(request):
 
 
 def profile(request, username):
-    tags = request.GET.getlist("tags")
-    tagsfull = True if not tags or len(tags) == 3 else False
+    tags, tagsfull = tags_check(request)
     if len(tags) == 3:
         return redirect("profile", username)
 
@@ -119,12 +115,8 @@ def profile(request, username):
 def new_recipe(request):
     form = RecipeForm(request.POST or None, files=request.FILES or None)
     if form.is_valid():
-        try:
-            with transaction.atomic():
-                form.save(request)
-                return redirect("index")
-        except IntegrityError:
-            raise HttpResponseBadRequest
+        form.save(request)
+        return redirect("index")
 
     context = {"form": form}
     return render(request, "recipes/new_recipe.html", context)
@@ -140,12 +132,8 @@ def recipe_edit(request, recipe_id):
         request.POST or None, files=request.FILES or None, instance=recipe
     )
     if form.is_valid():
-        try:
-            with transaction.atomic():
-                form.save(request)
-                return redirect("recipe", recipe_id=recipe_id)
-        except IntegrityError:
-            raise HttpResponseBadRequest
+        form.save(request)
+        return redirect("recipe", recipe_id=recipe_id)
 
     context = {"form": form, "recipe": recipe}
     return render(request, "recipes/new_recipe.html", context)
@@ -193,7 +181,9 @@ def download_shoplist(request):
     )
     content = ""
     for item in ingredients:
-        content += f" • {item['name']} ({item['measure']}) - {item['value']}\r\n"
+        content += (
+            f" • {item['name']} ({item['measure']}) - {item['value']}\r\n"
+        )
 
     content = bytes(content, encoding="UTF-8")
     uploaded_file = SimpleUploadedFile(

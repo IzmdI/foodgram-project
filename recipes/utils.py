@@ -45,3 +45,9 @@ def get_data(request):
         data.get(key) for key in data if key.startswith("valueIngredient")
     ]
     return tags, ingredients, ing_amounts
+
+
+def tags_check(request):
+    tags = request.GET.getlist("tags")
+    tagsfull = True if not tags or len(tags) == 3 else False
+    return tags, tagsfull

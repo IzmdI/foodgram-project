@@ -20,5 +20,5 @@ urlpatterns = [
         views.recipe_delete,
         name="recipe_delete",
     ),
-    path("<str:username>/", views.profile, name="profile"),
+    path("users/<str:username>/", views.profile, name="profile"),
 ]

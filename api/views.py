@@ -5,8 +5,12 @@ from rest_framework.response import Response
 
 from recipes.models import Favorite, Follow, Ingredient, Recipe, ShopList, User
 
-from .serializers import (FavoriteSerializer, FollowSerializer,
-                          IngredientSerializer, ShopListSerializer)
+from .serializers import (
+    FavoriteSerializer,
+    FollowSerializer,
+    IngredientSerializer,
+    ShopListSerializer,
+)
 
 
 class AddRemoveMixin(
@@ -17,6 +21,9 @@ class AddRemoveMixin(
 ):
     model = None
     model_lookup_field = None
+
+    def get_queryset(self):
+        return self.model.objects.all()
 
     def perform_create(self, serializer):
         if self.model_lookup_field == "recipe":
@@ -76,21 +83,18 @@ class AddRemoveMixin(
 
 class FavoriteViewSet(AddRemoveMixin):
     serializer_class = FavoriteSerializer
-    queryset = Favorite.objects.all()
     model = Favorite
     model_lookup_field = "recipe"
 
 
 class FollowViewSet(AddRemoveMixin):
     serializer_class = FollowSerializer
-    queryset = Follow.objects.all()
     model = Follow
     model_lookup_field = "author"
 
 
 class ShopListViewSet(AddRemoveMixin):
     serializer_class = ShopListSerializer
-    queryset = ShopList.objects.all()
     model = ShopList
     model_lookup_field = "recipe"
 

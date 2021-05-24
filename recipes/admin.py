@@ -13,6 +13,7 @@ class RecipeAdmin(admin.ModelAdmin):
     list_display = (
         "title",
         "author",
+        "ingredient_adminpage",
         "favorite_adds",
     )
     search_fields = (

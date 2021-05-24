@@ -1,5 +1,7 @@
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError, transaction
+from django.http import HttpResponseBadRequest
 
 from .models import FoodTag, Ingredient, Recipe
 from .utils import get_data, get_recipe_ingredients, get_recipe_tags
@@ -82,13 +84,15 @@ class RecipeForm(forms.ModelForm, TagForm):
                 )
             )
         tags, ingredients, ing_amounts = get_data(request)
-        self.save_m2m = self._save_m2m
         try:
-            self.instance.author
-        except ObjectDoesNotExist:
-            self.instance.author = request.user
-        self.instance.save()
-        self._save_m2m()
-        get_recipe_tags(self.instance, tags)
-        get_recipe_ingredients(self.instance, ingredients, ing_amounts)
+            with transaction.atomic():
+                try:
+                    self.instance.author
+                except ObjectDoesNotExist:
+                    self.instance.author = request.user
+                self.instance.save()
+                get_recipe_tags(self.instance, tags)
+                get_recipe_ingredients(self.instance, ingredients, ing_amounts)
+        except IntegrityError:
+            raise HttpResponseBadRequest
         return self.instance

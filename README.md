@@ -8,46 +8,6 @@
 
 Вам понадобится [Docker](https://www.docker.com/). Просто склонируйте репозиторий и запустите docker-compose.
 
-Во-первых, создайте виртуальное окружение и работайте в нём. Выполнять команду нужно в консоли, находясь в директории репозитория.
-
-```
-python3 -m venv venv
-```
-
-В Windows для запуска виртуального окружения выполните такую команду:
-
-```
-source venv/Scripts/activate
-```
-
-В macOS или Linux виртуальное окружение запускается так:
-
-```
-source venv/bin/activate
-```
-
-В консоли появится уведомление о том, что вы работаете в виртуальном окружении: строка `(venv)` будет предварять все команды.
-
-Сначала следует обновить менеджер пакетов pip:
-
-```
-python3 -m pip install --upgrade pip
-```
-
-После следует установить зависимости:
-
-```
-pip install -r requirements.txt
-```
-
-Остановить работу виртуального окружения можно командой:
-
-```
-deactivate
-```
-
-Далее нужно установить [Docker](https://www.docker.com/) и выполнить в консоли `docker-compose up`, находясь в директории репозитория.
-
 ### Установка
 
 Во-первых, откройте `.env.example`, задайте в нём переменные окружения и сохраните как `.env` без `.example`.
@@ -106,7 +66,7 @@ localhost:8000/admin
 Для обзора проект доступен по следующему адресу:
 
 ```
-http://178.154.194.99/
+http://130.193.34.65/
 ```
 
 ### Тестовые данные
@@ -128,8 +88,9 @@ python3 manage.py loaddata dump.json
 
 * [Django 3.1](https://www.djangoproject.com/) - Фреймворк для веб-разработки на python
 * [DRF 3.12](https://www.django-rest-framework.org/) - Фреймворк для реализации API в Django-проектах
-* [PostgreSQL 13.2](https://www.postgresql.org/) - База Данных
-* [Gunicorn 20.0](https://gunicorn.org/) - Python WSGI HTTP-Сервер
+* [PostgreSQL 13.2](https://www.postgresql.org/) - СУБД
+* [Gunicorn 20.1](https://gunicorn.org/) - Python WSGI HTTP-Сервер
+* [Docker 20](https://www.docker.com/) - Платформа для разработки, доставки и эксплуатации приложений
 
 ## Автор
 

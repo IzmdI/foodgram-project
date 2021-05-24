@@ -110,7 +110,12 @@ class Recipe(models.Model):
     def favorite_adds(self):
         return self.favs.count()
 
+    def ingredient_adminpage(self):
+        tags = [tag.title for tag in self.tags.all()]
+        return tags
+
     favorite_adds.short_description = "В избранном"
+    ingredient_adminpage.short_description = "Тэги"
 
 
 class IngredientAmount(models.Model):
