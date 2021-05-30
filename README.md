@@ -84,6 +84,11 @@ python3 manage.py shell
 python3 manage.py loaddata dump.json 
 ```
 
+### Планы по апдейтам
+
+* Покрытие тестами
+* Подключение сессий для неавторизованных пользователей
+
 ## Компоненты
 
 * [Django 3.1](https://www.djangoproject.com/) - Фреймворк для веб-разработки на python
